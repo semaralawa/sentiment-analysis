@@ -1,6 +1,7 @@
 import functools
 import requests
 import json
+from predict import predict
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
@@ -24,7 +25,10 @@ def home():
         payload = {}
         headers = api_key
         response = requests.request("GET", url, headers=headers, data=payload)
-
-        return json.loads(response.text)
+        tweets = json.loads(response.text)
+        # predict tweet
+        for tweet in tweets['data']:
+            predict(tweet['text'])
+        return tweets
 
     return render_template('home.html')
