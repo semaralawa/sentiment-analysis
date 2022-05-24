@@ -101,8 +101,8 @@
                                             <tr>
                                                 <td>Twitter</td>
                                                 <td> {{ data['text'] }} </td>
-                                                <td> positive </td>
-                                                <td> 90% </td>
+                                                <td> {{ data['prediction'] }} </td>
+                                                <td> {{ data['confidence'] }}% </td>
                                             </tr>
                                             {% endfor %}
                                         </thead>

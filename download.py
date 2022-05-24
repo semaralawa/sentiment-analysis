@@ -13,6 +13,6 @@ gdown.download(url, output, quiet=False)
 
 with ZipFile(output, 'r') as zipObj:
     # Extract all the contents of zip file in current directory
-    zipObj.extractall()
+    zipObj.extractall('model')
 
 os.remove(output)

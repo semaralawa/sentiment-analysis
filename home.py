@@ -1,10 +1,10 @@
 # import functools
 import requests
 import json
-# from predict import predict
+from predict import predict
 
 from flask import (
-    Blueprint, render_template, request, url_for, redirect
+    Blueprint, render_template, request
 )
 
 # create blueprint
@@ -35,8 +35,11 @@ def result():
     response = requests.request("GET", url, headers=headers, data=payload)
     tweets = json.loads(response.text)
     # predict tweet
-    # for tweet in tweets['data']:
-    #     predict(tweet['text'])
-    # return tweets
+    predict_result = []
+    for tweet in tweets['data']:
+        tweet['prediction'], tweet['confidence'] = predict(tweet['text'])
+        print(tweet)
+        predict_result.append(tweet)
+    # print(predict_result)
 
-    return render_template('result.html', datas=tweets['data'])
+    return render_template('result.html', datas=predict_result)
