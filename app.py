@@ -1,5 +1,5 @@
 import os
-from flask import (Flask, redirect, render_template, request, session, url_for)
+from flask import (Flask, redirect, url_for)
 
 app = Flask(__name__)
 
@@ -42,4 +42,4 @@ def create_app(test_config=None):
 
 if __name__ == '__main__':
     app = create_app()
-    app.run(port=5000, debug=True, host='0.0.0.0', use_reloader=True)
+    app.run(port=80, debug=True, host='0.0.0.0', use_reloader=True)

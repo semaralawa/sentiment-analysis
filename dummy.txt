@@ -1,0 +1,50 @@
+{
+  "data": [
+    {
+      "id": "1528925490697801728", 
+      "text": "RT @starfess: -hi irene lagi belanja di Bali buat oleh-oleh pulang ke sokor keknya \ud83d\ude0d\ud83d\ude2d\n\ncr. on pict https://t.co/HQ08yNyUQF"
+    }, 
+    {
+      "id": "1528925488127037440", 
+      "text": "Temukan HIJAB segiempat voal Motif Wanna series BEST SELLER dengan potongan 30%! Hanya Rp24.500. Dapatkan segera di Shopee! https://t.co/sAdUA0bWbc #ShopeeID\n\nJakarta Le_Sserafim #garamOUT jennie MASIH PAGI  INFJ Bali https://t.co/KKC5rO68m5"
+    }, 
+    {
+      "id": "1528925482628300800", 
+      "text": "RT @MarahIchsan: Miliarder sekaligus pendiri Tesla Elon Musk dan pendiri Microsoft Bill Gates telah mengonfirmasi kehadiran pada B20 Summit\u2026"
+    }, 
+    {
+      "id": "1528925472725143552", 
+      "text": "cherry di bali safari park lucuww :(:(:(:(\ud83e\udd0e"
+    }, 
+    {
+      "id": "1528925470053392385", 
+      "text": "RT @titasoffranseth: We donated to Ric O'Barry's Dolphin Project for Umah Lumba Rehabilitation, Release and Retirement Center in Banyuwedan\u2026"
+    }, 
+    {
+      "id": "1528925465016434688", 
+      "text": "RT @KPU_ID: #TemanPemilih, Ketua KPU RI Hasyim Asy'ari menjadi narasumber Konferensi Nasional Asosiasi Pengajar Hukum Tata Negara dan Hukum\u2026"
+    }, 
+    {
+      "id": "1528925433378484224", 
+      "text": "RT @Gigie14701576: Sambil nunggu update\u2019an warga bali yang mungkin ketemu Irene disana. \nBanyak videonya yeri dan seulgi jalan jalan, krn W\u2026"
+    }, 
+    {
+      "id": "1528925429276344320", 
+      "text": "RT @girlgrouparea: Gg! Liat irene semalam outfitnya mirip orang Bali cantik banget \ud83d\ude2d https://t.co/1PlvocrdPA"
+    }, 
+    {
+      "id": "1528925423119179776", 
+      "text": "RT @nonakimchii: Iyah, Irene Red Velvet di Bali jajan Indomie kok, rasa chicken smackdown ( ayam geprek ) keknya \u263a\ufe0f pretty my babyy!! https\u2026"
+    }, 
+    {
+      "id": "1528925422318104576", 
+      "text": "@mhwnk_ Semakin dilarang di jual umum menurutku sih akan banyak peminum yg tidak bijak dalam melakukan. Soalnya waktu kuliah di Bali biasa aja minum ya tinggal beli di warung madura terdekat."
+    }
+  ], 
+  "meta": {
+    "newest_id": "1528925490697801728", 
+    "next_token": "b26v89c19zqg8o3fpywo66dno899eazwiowrj8i8xsdx9", 
+    "oldest_id": "1528925422318104576", 
+    "result_count": 10
+  }
+}

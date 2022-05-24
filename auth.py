@@ -1,7 +1,7 @@
 import functools
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, flash, g, redirect, render_template, request, url_for
 )
 
 bp = Blueprint('auth', __name__, url_prefix='/')
@@ -23,7 +23,7 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if(username == 'admin' and password == 'admin123'):
+        if(username == 'admin' and password == 'aaa'):
             return redirect(url_for('home.home'))
         else:
             flash('username / password salah')
