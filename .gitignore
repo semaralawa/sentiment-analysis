@@ -2,3 +2,4 @@ __pycache__
 venv
 api_key.json
 model
+link_model.txt
