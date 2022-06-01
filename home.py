@@ -1,7 +1,7 @@
 # import functools
 import requests
 import json
-from predict import predict
+# from predict import predict
 
 from flask import (
     Blueprint, render_template, request
@@ -37,7 +37,7 @@ def result():
     # predict tweet
     predict_result = []
     for tweet in tweets['data']:
-        tweet['prediction'], tweet['confidence'] = predict(tweet['text'])
+        tweet['prediction'], tweet['confidence'] = 'positive', 90
         print(tweet)
         predict_result.append(tweet)
     # print(predict_result)
