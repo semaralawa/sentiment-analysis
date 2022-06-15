@@ -1,22 +1,10 @@
+import requests
 import re
-import tensorflow as tf
-from transformers import BertTokenizer, TFBertForSequenceClassification
-
-# load model
-model = TFBertForSequenceClassification.from_pretrained(
-    "indobenchmark/indobert-base-p2")
-# load tokenizer
-tokenizer = BertTokenizer.from_pretrained("indobenchmark/indobert-base-p2")
-# compile model
-model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=3e-5, epsilon=1e-08, clipnorm=1.0),
-              loss=tf.keras.losses.SparseCategoricalCrossentropy(
-    from_logits=True),
-    metrics=[tf.keras.metrics.SparseCategoricalAccuracy('accuracy')])
-# load weight
-model.load_weights('model/weight/test')
+import json
+from flask import current_app
 
 
-def preprocess(data):
+def preprocess(text):
     # Defining regex patterns.
     url_pattern = r"((http://)[^ ]*|(https://)[^ ]*|( www\.)[^ ]*)"
     user_pattern = '@[^\s]+'
@@ -24,38 +12,43 @@ def preprocess(data):
     sequence_pattern = r"(.)\1\1+"
     seq_replace_pattern = r"\1\1"
 
-    data = data.lower()
+    # preprocess text
     # Replace all URls with 'URL'
-    data = re.sub(url_pattern, ' URL', data)
+    text = re.sub(url_pattern, ' URL', text)
     # Replace @USERNAME to 'USER'.
-    data = re.sub(user_pattern, ' USER', data)
+    text = re.sub(user_pattern, ' USER', text)
     # Replace all non alphabets.
-    data = re.sub(alpha_pattern, " ", data)
+    text = re.sub(alpha_pattern, " ", text)
     # Replace 3 or more consecutive letters by 2 letter.
-    data = re.sub(sequence_pattern, seq_replace_pattern, data)
-    # save to list
-    data = data.strip()
+    text = re.sub(sequence_pattern, seq_replace_pattern, text)
 
-    return data
+    return text
 
 
-def predict(input):
-    input = preprocess(input)
-    # start predicting
-    tf_batch = tokenizer(input, max_length=128, padding=True,
-                         truncation=True, return_tensors='tf')
-    # print(tf_batch)
-    tf_outputs = model(tf_batch)
-    tf_predictions = tf.nn.softmax(tf_outputs[0], axis=-1)
-    # print()
-    labels = ['Positive', 'netral', 'Negative']
-    label = tf.argmax(tf_predictions, axis=1)
-    # print(label)
-    label = label.numpy()
+def predict(text):
+    text = preprocess(text)
+    url = "https://language.googleapis.com/v1/documents:analyzeSentiment?key=" + current_app.config['GOOGLE_API_KEY']  # noqa: E501
+    payload = {
+        "encodingType": "UTF8",
+        "document": {
+            "type": "PLAIN_TEXT",
+            "content": text,
+            "language": "id"
+        }
+    }
+    headers = {'Content-Type': 'text/plain'}
+    response = requests.request(
+        "POST", url, headers=headers, data=json.dumps(payload))
 
-    print(labels[label[0]])
-    return (labels[label[0]], tf_predictions.numpy()[0][label[0]])
+    output = json.loads(response.text)
 
+    prediction = {}
+    prediction['score'] = output['documentSentiment']['score']
+    if prediction['score'] > 0.25:
+        prediction['result'] = 'positive'
+    elif prediction['score'] < -0.25:
+        prediction['result'] = 'negative'
+    else:
+        prediction['result'] = 'netral'
 
-def testa(input):
-    return ('negative', 50)
+    return prediction
