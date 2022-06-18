@@ -1,7 +1,7 @@
 import json
 import JWT
 from flask import (
-    Blueprint, redirect, url_for, session, current_app
+    Blueprint, redirect, url_for, session, current_app, request
 )
 import requests
 import uuid
@@ -12,8 +12,8 @@ bp = Blueprint('auth', __name__, url_prefix='/')
 
 def authenticateToSSO():
     payload = {
-        'redirect': 'http://localhost/authData',
-        'urlToRedirect': 'http://localhost/home',
+        'redirect': request.host_url + 'authData',
+        'urlToRedirect': request.url,
         'logoutLink': current_app.config['SSO_DOMAIN'] + 'logout',
         'kode_broker': current_app.config['BROKER_CODE'],
         'sessionRequest': session['id']
@@ -27,11 +27,13 @@ def load_logged_in_user():
     # for testing
     # session.clear()
 
-    is_login = session.get('id')
-    if is_login is None:
+    # exclude /authData route
+    if ('/authData/' in request.path):
+        return
+
+    if session.get('id') is None or session.get('is_verify') is None:
         session.clear()
         session['id'] = uuid.uuid1().hex
-        print(session.get('id'))
         token = authenticateToSSO()
         return redirect(current_app.config['SSO_DOMAIN'] + 'authBroker/' + token)  # noqa: E501
 
@@ -49,6 +51,7 @@ def authData(token):
 
     # get decoded data
     if data_in['status']:
+        session['is_verify'] = 1
         decoded = JWT.decodeJWT(data_in['data'].encode('ascii'))
         print(decoded)
         session['is_login'] = 1
