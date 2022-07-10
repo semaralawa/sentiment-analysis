@@ -52,14 +52,14 @@
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-            <div class="input-group input-group-outline">
+            <!-- <div class="input-group input-group-outline">
               <label class="form-label">Type here...</label>
               <input type="text" class="form-control">
             </div>
-          </div>
+          </div> -->
           <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+              <a href="/logout" class="nav-link text-body font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
                 <span class="d-sm-inline d-none">Super admin</span>
               </a>
@@ -93,20 +93,22 @@
                 dengan bantuan AI</h6>
               <hr class="dark horizontal">
 
-              <form action="/result" method="post">
-                <input type="checkbox" class="checklist" id="" value="Facebook" name="facebook"> <label for="Facebook">
-                  <h6>Facebook</h6>
-                </label>
-                <input type="checkbox" class="checklist" id="" value="Twitter" name="twitter"> <label for="Twitter">
-                  <h6>Twitter</h6>
-                </label>
-                <input type="checkbox" class="checklist" id="" value="Instagram" value="instagram"> <label
-                  for="Instagram">
-                  <h6>Instagram</h6>
-                </label>
-                <input type="checkbox" class="checklist" id="" value="News" name="news"> <label for="Website">
-                  <h6>Portal berita</h6>
-                </label>
+              <form action="/predict" method="post">
+                <div class="text-center">
+                  <input type="checkbox" class="checklist" id="" value="Facebook" name="facebook" checked> <label for="Facebook">
+                    <h6>Facebook</h6>
+                  </label>
+                  <input type="checkbox" class="checklist" id="" value="Twitter" name="twitter" checked> <label for="Twitter">
+                    <h6>Twitter</h6>
+                  </label>
+                  <input type="checkbox" class="checklist" id="" value="Instagram" value="instagram" checked> <label
+                    for="Instagram">
+                    <h6>Instagram</h6>
+                  </label>
+                  <input type="checkbox" class="checklist" id="" value="News" name="news" checked> <label for="Website">
+                    <h6>Portal berita</h6>
+                  </label>
+                </div>
                 <input type="text" class="form-predict" placeholder="" id="keyword" name="keyword">
                 <div class="button-pencarian">
                   <input class="btn-pencarian align-content-center" type="submit" value="Prediksi" id="btn">
@@ -123,10 +125,6 @@
                 <div class="row">
                   <div class="col-lg-6 col-7">
                     <h6>Riwayat Pencarian</h6>
-                    <p class="text-sm mb-0">
-                      <i class="fa fa-check text-info" aria-hidden="true"></i>
-                      <span class="font-weight-bold ms-1">30 done</span> this month
-                    </p>
                   </div>
                   <div class="col-lg-6 col-5 my-auto text-end">
                     <div class="dropdown float-lg-end pe-4">
@@ -147,199 +145,76 @@
               <div class="card-body col-lg-12 col-md-6 mt-4 mb-4">
                 <!-- div class="col-lg-12 col-md-6 mt-4 mb-4"> -->
                 <div class="table-responsive">
+                  <!-- tabel riwayat pencarian -->
                   <table class="table align-items-center mb-0">
                     <thead>
                       <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Topik pernah
                           dicari</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                           Tanggal Pencarian</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                          Hasil Sentimen Positif</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"></th>
+                          Sentimen Positif</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                          Sentimen Netral</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                          Sentimen negatif</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                          </th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">1. Budaya Bali</h6>
-                            </div>
+                      {% for data in hist_data %}
+                    <tr>
+                      <td>
+                        <div class="d-flex px-2">
+                          <div class="my-auto">
+                            <h6 class="mb-0 text-sm text-center">{{loop.index}}</h6>
                           </div>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                          <span class="text-xs font-weight-bold"> 12 Desember 2022</span>
-                        </td>
-                        <td class="align-middle">
-                          <div class="progress-wrapper w-75 mx-auto">
-                            <div class="progress-info">
-                              <div class="progress-percentage">
-                                <span class="text-xs font-weight-bold">60%</span>
-                              </div>
-                            </div>
-                            <div class="progress">
-                              <div class="progress-bar bg-gradient-info w-60" role="progressbar" aria-valuenow="60"
-                                aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex px-2">
+                          <div class="my-auto">
+                            <h6 class="mb-0 text-sm">{{ data['keyword'] }}</h6>
                           </div>
-                        </td>
-                        <td>
-                          <div class="detail">
-                            <input class="btn-detail align-content-center" type="button" value="Detail" id="btn-detail">
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex px-2">
+                          <div class="my-auto">
+                            <h6 class="mb-0 text-sm">{{ data['date'] }}</h6>
                           </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">2. Bali Itu sejuk</h6>
-                            </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex px-2 center">
+                          <div class="my-auto">
+                            <h6 class="mb-0 text-sm">{{ data['positive'] }}</h6>
                           </div>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                          <span class="text-xs font-weight-bold">23 juni 2021 </span>
-                        </td>
-                        <td class="align-middle">
-                          <div class="progress-wrapper w-75 mx-auto">
-                            <div class="progress-info">
-                              <div class="progress-percentage">
-                                <span class="text-xs font-weight-bold">30%</span>
-                              </div>
-                            </div>
-                            <div class="progress">
-                              <div class="progress-bar bg-gradient-info w-10" role="progressbar" aria-valuenow="30"
-                                aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex px-2 center">
+                          <div class="my-auto">
+                            <h6 class="mb-0 text-sm">{{ data['neutral'] }}</h6>
                           </div>
-                        </td>
-                        <td>
-                          <div class="detail">
-                            <input class="btn-detail align-content-center" type="button" value="Detail" id="btn-detail">
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex px-2 center">
+                          <div class="my-auto">
+                            <h6 class="mb-0 text-sm">{{ data['negative'] }}</h6>
                           </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">3. Bali itu bersih</h6>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                          <span class="text-xs font-weight-bold"> 30 Januari 2022 </span>
-                        </td>
-                        <td class="align-middle">
-                          <div class="progress-wrapper w-75 mx-auto">
-                            <div class="progress-info">
-                              <div class="progress-percentage">
-                                <span class="text-xs font-weight-bold">100%</span>
-                              </div>
-                            </div>
-                            <div class="progress">
-                              <div class="progress-bar bg-gradient-success w-100" role="progressbar" aria-valuenow="100"
-                                aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="detail">
-                            <input class="btn-detail align-content-center" type="button" value="Detail" id="btn-detail">
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">4. Bali kota wisata</h6>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                          <span class="text-xs font-weight-bold"> 15 Februari 2022</span>
-                        </td>
-                        <td class="align-middle">
-                          <div class="progress-wrapper w-75 mx-auto">
-                            <div class="progress-info">
-                              <div class="progress-percentage">
-                                <span class="text-xs font-weight-bold">100%</span>
-                              </div>
-                            </div>
-                            <div class="progress">
-                              <div class="progress-bar bg-gradient-success w-100" role="progressbar" aria-valuenow="100"
-                                aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="detail">
-                            <input class="btn-detail align-content-center" type="button" value="Detail" id="btn-detail">
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">5. Pemerintahan Bali</h6>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                          <span class="text-xs font-weight-bold"> 26 Oktober 2021</span>
-                        </td>
-                        <td class="align-middle">
-                          <div class="progress-wrapper w-75 mx-auto">
-                            <div class="progress-info">
-                              <div class="progress-percentage">
-                                <span class="text-xs font-weight-bold">70%</span>
-                              </div>
-                            </div>
-                            <div class="progress">
-                              <div class="progress-bar bg-gradient-info w-25" role="progressbar" aria-valuenow="75"
-                                aria-valuemin="0" aria-valuemax="75"></div>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="detail">
-                            <input class="btn-detail align-content-center" type="button" value="Detail" id="btn-detail">
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">6. Kuta indah</h6>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                          <span class="text-xs font-weight-bold"> 11 Maret 2021 </span>
-                        </td>
-                        <td class="align-middle">
-                          <div class="progress-wrapper w-75 mx-auto">
-                            <div class="progress-info">
-                              <div class="progress-percentage">
-                                <span class="text-xs font-weight-bold">40%</span>
-                              </div>
-                            </div>
-                            <div class="progress">
-                              <div class="progress-bar bg-gradient-info w-40" role="progressbar" aria-valuenow="40"
-                                aria-valuemin="0" aria-valuemax="40"></div>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="detail">
-                            <input class="btn-detail align-content-center" type="button" value="Detail" id="btn-detail">
-                          </div>
-                        </td>
-                      </tr>
+                        </div>
+                      </td>
+                      <td>
+                          <a class="btn btn-link text-dark px-3 my-0" href="/result/{{data['_id']}}">detail</a>
+                          <a class="btn btn-link text-danger px-3 my-0" href="/delete/history/{{data['_id']}}">Hapus</a>
+                      </td>
+                    </tr>
+                    {% endfor %}
                     </tbody>
                   </table>
                 </div>
