@@ -14,7 +14,7 @@ def authenticateToSSO():
     payload = {
         'redirect': request.host_url + 'authData',
         'urlToRedirect': request.url,
-        'logoutLink': current_app.config['SSO_DOMAIN'] + 'logout',
+        'logoutLink': request.host_url + 'logout',
         'kode_broker': current_app.config['BROKER_CODE'],
         'sessionRequest': session['id']
     }
@@ -24,9 +24,6 @@ def authenticateToSSO():
 
 @bp.before_app_request
 def load_logged_in_user():
-    # for testing
-    # session.clear()
-
     # exclude /authData route
     if ('/authData/' in request.path):
         return
@@ -48,13 +45,26 @@ def authData(token):
     response = requests.request(
         "POST", url, headers=headers, data=payload, files=files)
     data_in = json.loads(response.text)
-
     # get decoded data
     if data_in['status']:
         session['is_verify'] = 1
         decoded = JWT.decodeJWT(data_in['data'].encode('ascii'))
         print(decoded)
         session['is_login'] = 1
-        return redirect(url_for('home.home'))
+        # save some data from SSO
+        session['user_id'] = decoded['user']['id']
+        session['user_fullname'] = decoded['user']['name']
+        session['username'] = decoded['user']['username']
+        session['user_email'] = decoded['user']['email']
+        session['user_profilepic'] = decoded['user']['profilepic']
+
+        return redirect(decoded['urlToRedirect'])
     else:
         print('login gagal')
+
+
+@bp.route('/logout', methods=('GET', 'POST'))
+def logout():
+    session.clear()
+    logout_link = current_app.config['SSO_DOMAIN'] + 'logout'
+    return redirect(logout_link)
