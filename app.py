@@ -1,10 +1,17 @@
+from pymongo import MongoClient
 import os
 from flask import (Flask, redirect, url_for)
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_object('config')
 app.config.from_pyfile('config.py')
+
 HTTP_PORT = 80
+
+# init database
+client = MongoClient(
+    app.config['MONGODB_HOST'], app.config['MONGODB_PORT'])
+db = client['sentiment']
 
 
 def create_app():
@@ -20,11 +27,14 @@ def create_app():
     import auth
     app.register_blueprint(auth.bp)
 
+    import predict
+    app.register_blueprint(predict.bp)
+
     # simple route
 
     @app.route("/")
     def start():
-        return redirect(url_for('home.home'))
+        return redirect(url_for('home.dashboard'))
 
     return app
 
