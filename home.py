@@ -26,7 +26,7 @@ def result(data_id):
     result_data = []
     for data in result_cursor:
         result_data.append(data)
-    return render_template('tables copy.html', hist_data=json.loads(json_util.dumps(hist_data)),  # noqa:E501
+    return render_template('result.html', hist_data=json.loads(json_util.dumps(hist_data)),  # noqa:E501
                            result_data=result_data)
 
 
