@@ -188,13 +188,8 @@
               </div>
             </div>
             <div class="card-body">
-              <h6 class="mb-0 "> Daily Sales </h6>
-              <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today sales. </p>
-              <hr class="dark horizontal">
-              <div class="d-flex ">
-                <i class="material-icons text-sm my-auto me-1">schedule</i>
-                <p class="mb-0 text-sm"> updated 4 min ago </p>
-              </div>
+              <h6 class=""> Grafik Hasil Pencarian </h6>
+              <p class="text-sm "> dari tanggal 27-01-2022 hingga 10-07-2022 </p>
             </div>
           </div>
         </div>
@@ -202,7 +197,7 @@
           <div class="card z-index-2 ">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
               <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
-                <div class="chart mx-auto my-0" style="width: 300px; height: 300px;">
+                <div class="chart mx-auto my-0" style="width: 305px; height: 305px;">
                   <!-- <canvas id="chart-line-tasks" class="chart-canvas" height="170"></canvas> -->
                   <canvas id="diagramlingkaran"></canvas>
 
@@ -210,13 +205,8 @@
               </div>
             </div>
             <div class="card-body">
-              <h6 class="mb-0 ">Completed Tasks</h6>
-              <p class="text-sm ">Last Campaign Performance</p>
-              <hr class="dark horizontal">
-              <div class="d-flex ">
-                <i class="material-icons text-sm my-auto me-1">schedule</i>
-                <p class="mb-0 text-sm">just updated</p>
-              </div>
+              <h6>Diagram Hasil Sentiment</h6>
+              <p class="text-sm ">dari kata kunci {{hist_data['keyword']}}</p>
             </div>
           </div>
         </div>
@@ -286,41 +276,6 @@
           </div>
         </div>
       </div>
-      <div class="row mt-1">
-        <div class="col-lg-6 col-md-6 mt-4 mb-4">
-          <div class="card z-index-2 ">
-            <div class="card-body">
-              <h6 class="mb-0 ">Hasil pengumpulan data</h6>
-              <hr class="dark horizontal">
-              <div>
-                <canvas id="myChart" height="300"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6 col-md-6 mt-4 mb-4">
-          <div class="card z-index-2 ">
-            <div class="card-body">
-              <h6 class="mb-0 ">Hasil pengumpulan data</h6>
-              <hr class="dark horizontal">
-              <div>
-                <canvas id="diagramlingkaran"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-6 mt-4 mb-4">
-        <div class="card z-index-2 ">
-          <div class="card-body">
-            <h6 class="mb-0 ">Hasil pengumpulan data</h6>
-            <hr class="dark horizontal">
-            <div>
-              <canvas id="diagrambar"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="col-lg-6 col-md-6 mt-4 mb-4">
         <div class="card z-index-2 ">
           <div class="card-body">
@@ -340,17 +295,17 @@
             <div class="col-lg-6">
               <ul class="nav nav-footer justify-content-center justify-content-lg-end">
                 <li class="nav-item">
-                  <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
+                  <a href="" class="nav-link text-muted" target="_blank">Creative Tim</a>
                 </li>
                 <li class="nav-item">
-                  <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About
+                  <a href=" class="nav-link text-muted" target="_blank">About
                     Us</a>
                 </li>
                 <li class="nav-item">
-                  <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
+                  <a href="" class="nav-link text-muted" target="_blank">Blog</a>
                 </li>
                 <li class="nav-item">
-                  <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted"
+                  <a href="" class="nav-link pe-0 text-muted"
                     target="_blank">License</a>
                 </li>
               </ul>
@@ -461,9 +416,9 @@
         label: 'Twitter',
         backgroundColor: 'rgb(255, 99, 132)',
         borderColor: 'rgb(255, 99, 132)',
-        data: [0, 10, 5, 2, 20, 30, 45],
+        data: [0, 10, 5, 2, 20, 30, 33],
       }, {
-        label: 'Facebook',
+        label: 'Berita',
         backgroundColor: 'rgb(0, 255, 254)',
         borderColor: 'rgb(0, 255, 254)',
         data: [0, 5, 10, 5, 3, 20, 25],
@@ -474,7 +429,23 @@
     var config = {
       type: 'line',
       data: datafirst,
-      options: {}
+      options: {
+        plugins: {  
+          legend: {
+            labels: {
+              color: "#aaa", 
+            },
+          }
+        },
+        scales: {
+          y: {
+            ticks: { color: '#aaa', beginAtZero: true }
+          },
+          x: {
+            ticks: { color: '#aaa', beginAtZero: true }
+          }
+        },
+      }
     };
 
     const myChart = new Chart(
