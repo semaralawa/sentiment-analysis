@@ -11,11 +11,10 @@ bp = Blueprint('home', __name__, url_prefix='/')
 
 @bp.route('/dashboard', methods=('GET', 'POST'))
 def dashboard():
-    hist_cursor = db.history.find()
+    hist_cursor = db.history.find({'username': session['username']})
     hist_data = []
     for data in hist_cursor:
         hist_data.append(data)
-    print(session)
     return render_template('dashboard.html', hist_data=hist_data)
 
 

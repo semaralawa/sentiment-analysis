@@ -17,13 +17,13 @@ def twitter(keyword):
     }
     response = requests.request("GET", url, headers=headers, data=payload)
     tweets = json.loads(response.text)
-    print(tweets)
+    # print(tweets)
     return tweets
 
 
 def getUrl(url):
     req = requests.request("GET", url, headers={'User-Agent': 'Mozilla/5.0'})
-    print(req.status_code)
+    # print(req.status_code)
     if req.status_code == 404:
         return req.status_code
     html = req.text
