@@ -57,12 +57,19 @@
               <input type="text" class="form-control">
             </div>
           </div> -->
-          <ul class="navbar-nav  justify-content-end">
-            <li class="nav-item d-flex align-items-center">
-              <a href="/logout" class="nav-link text-body font-weight-bold px-0">
+          <ul class="navbar-nav justify-content-end">
+            <li class="nav-item dropdown d-flex align-items-center cursor-pointer">
+              <a class="nav-link text-body font-weight-bold px-0 " id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">logout</span>
+                <span class="d-sm-inline d-none">{{ session['username'] }}</span>
               </a>
+              <ul class="dropdown-menu  dropdown-menu-end  px-1 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                <li>
+                  <a class="dropdown-item border-radius-md" href="/logout">
+                    Log Out
+                  </a>
+                </li>
+              </ul>
             </li>
             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
