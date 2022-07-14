@@ -3,13 +3,53 @@ import re
 import json
 from datetime import date, datetime
 from flask import (
-    Blueprint, request, url_for, redirect, current_app
+    Blueprint, request, url_for, redirect, current_app, session
 )
+import boto3
+from botocore.config import Config
 import getData
 from app import db
 
 # create blueprint
 bp = Blueprint('predict', __name__, url_prefix='/')
+
+
+def predict_aws(text):
+    comp_config = Config(
+        region_name='ap-southeast-2',
+        signature_version='v4',
+        retries={
+            'max_attempts': 10,
+            'mode': 'standard'
+        }
+    )
+
+    comp_client = boto3.client(
+        'comprehend',
+        config=comp_config,
+        aws_access_key_id=current_app.config["AWS_ACCESS_KEY"],
+        aws_secret_access_key=current_app.config["AWS_SECRET_ACCESS_KEY"],
+    )
+
+    translate = boto3.client(service_name='translate',
+                             config=comp_config,
+                             aws_access_key_id=current_app.config["AWS_ACCESS_KEY"],
+                             aws_secret_access_key=current_app.config["AWS_SECRET_ACCESS_KEY"],
+                             use_ssl=True)
+
+    result = translate.translate_text(Text=text,
+                                      SourceLanguageCode="id", TargetLanguageCode="en")
+    print('TranslatedText: ' + result.get('TranslatedText'))
+
+    response_Sentiment = comp_client.detect_sentiment(
+        LanguageCode="en",
+        Text=result.get('TranslatedText')
+    )
+
+    response_Sentiment['TranslatedText'] = result.get('TranslatedText')
+    print(response_Sentiment)
+    print('\n')
+    return response_Sentiment
 
 
 def preprocess(text):
@@ -35,6 +75,8 @@ def preprocess(text):
 
 def predict(source, hist_id, data):
     # text = preprocess(text)
+    data['raw_aws'] = predict_aws(data['text'])
+
     data['hist_id'] = hist_id
 
     data['source'] = source
@@ -57,6 +99,7 @@ def predict(source, hist_id, data):
 
     output = json.loads(response.text)
     # print(output)
+    data['raw_result'] = output
     data['score'] = output['documentSentiment']['score']
     if data['score'] > 0.25:
         data['result'] = 'positive'
@@ -77,6 +120,7 @@ def predictData():
 
         # make variable and add data
         predict_result = {}
+        predict_result['username'] = session['username']
         predict_result['keyword'] = key
         predict_result['date'] = date.today().strftime('%d/%m/%Y')
         predict_result['datetime'] = datetime.now().strftime(
