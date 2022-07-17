@@ -18,6 +18,15 @@ def dashboard():
     return render_template('dashboard.html', hist_data=hist_data)
 
 
+@bp.route('/history', methods=('GET', 'POST'))
+def history():
+    hist_cursor = db.history.find({'username': session['username']})
+    hist_data = []
+    for data in hist_cursor:
+        hist_data.append(data)
+    return render_template('Riwayat pencarian.html', hist_data=hist_data)
+
+
 @bp.route('/result/<data_id>', methods=('GET', 'POST'))
 def result(data_id):
     hist_data = db.history.find_one({'_id': ObjectId(data_id)})
