@@ -38,6 +38,11 @@ def result(data_id):
                            result_data=result_data)
 
 
+@bp.route('/trending', methods=('GET', 'POST'))
+def trending():
+    return render_template('trending.html')
+
+
 @bp.route('/test', methods=('GET', 'POST'))
 def test():
     return render_template('test.html')

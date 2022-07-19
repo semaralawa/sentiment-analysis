@@ -8,7 +8,7 @@ def twitter(keyword):
     # fields to return
     tweet_field = 'created_at,author_id'
     expansions = 'author_id'
-    max_result = 10
+    max_result = 20
 
     url = f"https://api.twitter.com/2/tweets/search/recent?tweet.fields={tweet_field}&expansions={expansions}&max_results={max_result}&query={keyword}"  # noqa: E501
     payload = {}
