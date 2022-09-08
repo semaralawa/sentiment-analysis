@@ -75,7 +75,7 @@ def preprocess(text):
 
 def predict(source, hist_id, data):
     # text = preprocess(text)
-    data['raw_aws'] = predict_aws(data['text'])
+    # data['raw_aws'] = predict_aws(data['text'])
 
     data['hist_id'] = hist_id
 
@@ -108,6 +108,11 @@ def predict(source, hist_id, data):
     else:
         data['result'] = 'neutral'
 
+    # convert datetime from twitter API
+    if(source == 'twitter'):
+        new_datetime = datetime.strftime(datetime.strptime(
+            data['created_at'], '%Y-%m-%dT%H:%M:%S.000Z'), '%a, %d %b %Y %H:%M:%S')
+        data['created_at'] = new_datetime
     db['result'].insert_one(data)
     return data['result']
 
