@@ -26,7 +26,8 @@
   <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
   <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 
 </head>
 
@@ -36,7 +37,8 @@
     id="sidenav-main">
     <div class="sidenav-header">
       <a class="navbar-brand" target="_blank">
-        <img id="myImage" src="{{ url_for('static', filename='img/logo2.png') }}" class="navbar-brand-img" alt="main_logo">
+        <img id="myImage" src="{{ url_for('static', filename='img/logo2.png') }}" class="navbar-brand-img"
+          alt="main_logo">
       </a>
     </div>
     <hr class="horizontal light mt-0 mb-2">
@@ -93,7 +95,8 @@
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <ul class="navbar-nav justify-content-end">
               <li class="nav-item dropdown d-flex align-items-center cursor-pointer">
-                <a class="nav-link text-body font-weight-bold px-0 " id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link text-body font-weight-bold px-0 " id="dropdownMenuButton" data-bs-toggle="dropdown"
+                  aria-expanded="false">
                   <i class="fa fa-user me-sm-1"></i>
                   <span class="d-sm-inline d-none">{{ session['username'] }}</span>
                 </a>
@@ -120,8 +123,8 @@
                 </a>
               </li>
             </ul>
+          </div>
         </div>
-      </div>
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
@@ -135,7 +138,8 @@
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
           <div class="card">
             <div class="card-header p-3 pt-2">
-              <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
+              <div
+                class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
                 <i class="material-icons opacity-10">diversity_3</i>
               </div>
               <div class="text-end pt-1">
@@ -148,7 +152,8 @@
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
           <div class="card">
             <div class="card-header p-3 pt-2">
-              <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+              <div
+                class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
                 <i class="material-icons opacity-10">sentiment_very_satisfied</i>
               </div>
               <div class="text-end pt-1">
@@ -162,7 +167,8 @@
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
           <div class="card">
             <div class="card-header p-3 pt-2">
-              <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
+              <div
+                class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
                 <i class="material-icons opacity-10">sentiment_dissatisfied</i>
               </div>
               <div class="text-end pt-1">
@@ -175,7 +181,8 @@
         <div class="col-xl-3 col-sm-6">
           <div class="card">
             <div class="card-header p-3 pt-2">
-              <div class="icon icon-lg icon-shape bg-gradient-secondary shadow-secondary text-center border-radius-xl mt-n4 position-absolute">
+              <div
+                class="icon icon-lg icon-shape bg-gradient-secondary shadow-secondary text-center border-radius-xl mt-n4 position-absolute">
                 <i class="material-icons opacity-10">sentiment_neutral</i>
               </div>
               <div class="text-end pt-1">
@@ -310,15 +317,14 @@
                   <a href="" class="nav-link text-muted" target="_blank">Creative Tim</a>
                 </li>
                 <li class="nav-item">
-                  <a href=" class="nav-link text-muted" target="_blank">About
+                  <a href=" class=" nav-link text-muted" target="_blank">About
                     Us</a>
                 </li>
                 <li class="nav-item">
                   <a href="" class="nav-link text-muted" target="_blank">Blog</a>
                 </li>
                 <li class="nav-item">
-                  <a href="" class="nav-link pe-0 text-muted"
-                    target="_blank">License</a>
+                  <a href="" class="nav-link pe-0 text-muted" target="_blank">License</a>
                 </li>
               </ul>
             </div>
@@ -442,10 +448,10 @@
       type: 'line',
       data: datafirst,
       options: {
-        plugins: {  
+        plugins: {
           legend: {
             labels: {
-              color: "#aaa", 
+              color: "#aaa",
             },
           }
         },
@@ -475,13 +481,13 @@
       ],
       datasets: [{
         label: 'My First Dataset',
-        data: [{{hist_data['positive']}}, {{hist_data['neutral']}}, {{hist_data['negative']}},],
-        backgroundColor: [
-          'rgb(67, 160, 71)',
-          'rgb(73, 83, 97)',
-          'rgb(216, 27, 96)'
-        ],
-        hoverOffset: 4
+        data: [{{ hist_data['positive']}}, {{ hist_data['neutral']}}, {{ hist_data['negative']}},],
+    backgroundColor: [
+      'rgb(67, 160, 71)',
+      'rgb(73, 83, 97)',
+      'rgb(216, 27, 96)'
+    ],
+      hoverOffset: 4
       }]
     };
 
@@ -544,8 +550,8 @@
 
   <script>
     $(document).ready(function () {
-    $('#result-table').DataTable();
-});  
+      $('#result-table').DataTable();
+    });  
   </script>
 
   <!--   Core JS Files   -->
