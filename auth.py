@@ -27,6 +27,8 @@ def load_logged_in_user():
     # exclude /authData route
     if ('/authData/' in request.path):
         return
+    if ('/guest' in request.path):
+        return
 
     if session.get('id') is None or session.get('is_verify') is None:
         session.clear()
