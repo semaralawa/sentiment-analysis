@@ -30,7 +30,24 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
+  <style>
+    .loader {
+      display: none;
+      border: 16px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 16px solid #3498db;
+      margin-top: 5px;
+      width: 25px;
+      height: 25px;
+      -webkit-animation: spin 2s linear infinite; /* Safari */
+      animation: spin 2s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    </style>
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
@@ -157,18 +174,20 @@
                   </label>           
                 </div>
 
-                <div class=" me-md-auto d-flex align-items-center ps-5 pb-3 pt-5 flex-wrap">
+                <div class=" me-md-auto d-flex align-items-center ps-3 pb-3 pt-5 flex-wrap">
                   <div class="input-group input-group-outline w-60 pe-3 pt-3">
                     <input type="text" class="form-control" placeholder="Cari di sini..." id="keyword" name="keyword" required>
                     
                   </div>
                   <div class="pe-2 pt-3">
-                  <input type="text" name="datefilter" placeholder="Rentang Waktu" class="p-2 pe-2"/>
+                  <input type="text" name="datefilter" placeholder="09/02/2022 - 09/09/2022" class="p-2 pe-2"/>
       
                   </div>
                   <div class="pt-3">
-                  <button type="submit" class="btn-pencarian">Mulai</button>
+                  <button type="submit" class="btn-pencarian" onclick="show_loader()">Mulai</button>
       
+                  </div>
+                  <div class="loader" id="loader">
                   </div>
                 </div> 
               </form>
@@ -373,6 +392,13 @@
   <script src="{{ url_for('static', filename='js/plugins/smooth-scrollbar.min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/plugins/chartjs.min.js') }}"></script>
   
+<script>
+  function show_loader() {
+  var x = document.getElementById("loader");
+  x.style.display = "block";
+}
+</script>
+
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
