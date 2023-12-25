@@ -1,6 +1,7 @@
 flask>=2.1.2
-requests>=2.27.1
+requests>=2.31.0
 beautifulsoup4>=4.11.1
 pymongo>=4.1.1
 bson>=0.5.10
 boto3>=1.24.26
+certifi>=2023.7.22 # not directly required, pinned by Snyk to avoid a vulnerability
