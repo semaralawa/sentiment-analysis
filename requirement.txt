@@ -1,5 +1,5 @@
 flask>=2.1.2
-requests>=2.27.1
+requests>=2.32.0
 beautifulsoup4>=4.11.1
 pymongo>=4.1.1
 bson>=0.5.10
